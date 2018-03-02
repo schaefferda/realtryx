@@ -14,6 +14,8 @@ import os
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+STATIC_DIR = os.path.join(BASE_DIR, 'static')
+BASE_DOMAIN_URL = 'localhost'
 
 
 # Quick-start development settings - unsuitable for production
@@ -21,25 +23,72 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
 # SECURITY WARNING: keep the secret key used in production secret!
 SECRET_KEY = '^m&2k0l_-+_xj+o^@towi^2wmm^5^ft9m-#3ky7(w3$8ioae*2'
+STRIPE_PUBLIC_KEY = os.environ.get(
+    'STRIPE_PUBLIC_KEY', 'pk_test_CvLYdqrJiwkGbi98MIuqKFPO'
+)
+STRIPE_SECRET_KEY = os.environ.get(
+    'STRIPE_SECRET_KEY', 'sk_test_ZEEJsQM52koQOIJjw0I97nFm'
+)
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = [
+    '.localhost',
+    '127.0.0.1',
+    '[::1]',
+]
 
+# TLS settings
+#SECURE_SSL_REDIRECT = True
+#SESSION_COOKIE_SECURE = True
+#CSRF_COOKIE_SECURE = True
+
+# Email settings
+EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+EMAIL_TO = 'support@realtryx.com'
+EMAIL_HOST = 'smtp.mailgun.org'
+EMAIL_PORT = 587
+EMAIL_HOST_USER = 'postmaster@realtryx.com'
+EMAIL_HOST_PASSWORD = '3b7a47bdeb4eba6fd1c8fc17ec6a5534'
+EMAIL_USE_TLS = False
+EMAIL_TIMEOUT = 60
 
 # Application definition
+SHARED_APPS = (
+    'tenant_schemas',  # Required, must be first in the list/tuple.
+    'bootstrap_daterangepicker',
+    'customer',
+    'django.contrib.contenttypes',
+    'django.contrib.auth',
+    'django.contrib.humanize',
+    'django.contrib.messages',
+    'django.contrib.sessions',
+    'django.contrib.sites',
+    'mathfilters'
+)
+
+TENANT_APPS = (
+    'django.contrib.contenttypes',
+)
 
 INSTALLED_APPS = [
+    'tenant_schemas',  # Required, must be first in the list/tuple.
+    'bootstrap_daterangepicker',
+    'customer',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
+    'django.contrib.humanize',
     'django.contrib.sessions',
     'django.contrib.messages',
+    'django.contrib.sites',
     'django.contrib.staticfiles',
+    'mathfilters'
 ]
 
 MIDDLEWARE = [
+    'tenant_schemas.middleware.SuspiciousTenantMiddleware',
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
@@ -49,6 +98,13 @@ MIDDLEWARE = [
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 ]
 
+SESSION_ENGINE = 'django.contrib.sessions.backends.signed_cookies'
+#SESSION_COOKIE_DOMAIN = 'prodtracker.harmonywave.com'
+SESSION_COOKIE_NAME = 'prod_tracker_cookie'
+
+AUTH_USER_MODEL = 'customer.User'
+TENANT_MODEL = 'customer.Tenant'
+DEFAULT_FILE_STORAGE = 'tenant_schemas.storage.TenantFileSystemStorage'
 ROOT_URLCONF = 'europa.urls'
 
 TEMPLATES = [
@@ -75,14 +131,35 @@ WSGI_APPLICATION = 'europa.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
+        'ENGINE': 'tenant_schemas.postgresql_backend',
+        'NAME': 'prod_tracker_test2',
+        'USER': 'prod_tracker_test_user',
+        'PASSWORD': 'NKfJEFPWw3',
+        'HOST': 'bllsql02.prodtracker.harmonywave.com',
+        'PORT': '',
+        'OPTIONS': {
+            'sslmode': 'require',
+        },
+        'TEST': {
+            'NAME': 'prod_tracker_unit_test'
+        }
     }
 }
 
+DATABASE_ROUTERS = (
+    'tenant_schemas.routers.TenantSyncRouter',
+)
 
 # Password validation
 # https://docs.djangoproject.com/en/1.11/ref/settings/#auth-password-validators
+
+PASSWORD_HASHERS = [
+    'django.contrib.auth.hashers.Argon2PasswordHasher',
+    'django.contrib.auth.hashers.BCryptSHA256PasswordHasher',
+    'django.contrib.auth.hashers.BCryptPasswordHasher',
+    'django.contrib.auth.hashers.PBKDF2PasswordHasher',
+    'django.contrib.auth.hashers.PBKDF2SHA1PasswordHasher'
+]
 
 AUTH_PASSWORD_VALIDATORS = [
     {
@@ -99,6 +176,12 @@ AUTH_PASSWORD_VALIDATORS = [
     },
 ]
 
+# Authentication backends
+# https://docs.djangoproject.com/en/1.11/topics/auth/customizing/#authentication-backend
+
+AUTHENTICATION_BACKENDS = [
+    'customer.auth.TenantBackend'
+]
 
 # Internationalization
 # https://docs.djangoproject.com/en/1.11/topics/i18n/
@@ -117,4 +200,8 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/1.11/howto/static-files/
 
+STATIC_ROOT = '/var/www/realtryx.com/static/'
 STATIC_URL = '/static/'
+STATICFILES_DIRS = [
+    STATIC_DIR
+]
