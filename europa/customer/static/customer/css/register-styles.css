@@ -1,0 +1,28 @@
+body {
+  background-color: #f2f5ff;
+  font-family: 'Montserrat';
+  font-size: 16px;
+}
+
+.auth-text {
+  margin-top: 10px;
+  font-size: 0.9rem;
+}
+
+.sign-up {
+  padding: 40px;
+  margin-top: 200px;
+  background-color: #fff;
+}
+
+.sign-up-header {
+  margin-bottom: 1.5rem;
+}
+
+.form-group {
+  margin-bottom: 0.5rem;
+}
+
+.is-licensed {
+  margin-left: -0.35rem;
+}

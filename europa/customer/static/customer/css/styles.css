@@ -1,0 +1,156 @@
+body {
+  background-color: #fff;
+  font-family: 'Open Sans';
+  font-size: 16px;
+}
+
+h1 {
+  color: #fff;
+}
+
+h2 {
+  margin-top: 80px;
+}
+
+h3 {
+  margin-bottom: 60px;
+}
+
+h3, h4, h5 {
+  color: #4769b7;
+}
+
+h3.subtitle {
+  color: #fff;
+}
+
+i.fa {
+  font-size: 2.0rem;
+  margin-top: 10px;
+  margin-bottom: 10px;
+}
+
+#upperCollapsingNavbar {
+  margin-left: 5%;
+}
+
+.jumbotron {
+  background: no-repeat center url("https://images.unsplash.com/photo-1504626283863-16b85ec81850?auto=format&fit=crop&w=1650&q=80");
+  height: 750px;
+}
+
+.auth-text {
+  margin-top: 10px;
+  font-size: 0.9rem;
+}
+
+.sign-up {
+  padding: 40px;
+  margin-top: 200px;
+  background-color: #fff;
+}
+
+.form-group {
+  margin-bottom: 0.5rem;
+}
+
+.btn-primary {
+  background-color: #4769b7;
+  border: 1px solid #4769b7;
+  border-radius: 10px;
+  color: #f2f5ff;
+  padding: 9px 18px;
+  margin: -20px 25px 0px 25px;
+  min-width: 160px;
+}
+
+.btn-outline-primary {
+  font-size: 0.625rem;
+  border: #4769b7 solid 2px;
+  margin-right: 10px;
+  border-radius: 10px;
+  padding: 2px 20px;
+  color: #4769b7;
+  min-width: 80px;
+}
+
+.btn-outline-primary:hover {
+  background-color: #4769b7;
+  color: #fff;
+}
+
+.grid-tl, .grid-tm, .grid-tr, .grid-bl, .grid-bm, .grid-br {
+  border: 1px solid #000;
+  padding: 25px 80px;
+}
+
+.grid-tl {
+  border-top: none;
+  border-left: none;
+}
+
+.grid-tm {
+  border-top: none;
+}
+
+.grid-tr {
+  border-top: none;
+  border-right: none;
+}
+
+.grid-bl {
+  border-bottom: none;
+  border-left: none;
+}
+
+.grid-bm {
+  border-bottom: none;
+}
+
+.grid-br {
+  border-bottom: none;
+  border-right: none;
+}
+
+a.btn-outline-primary:hover {
+  background-color: #4769b7;
+  color: #fff;
+  border: #4769b7 solid 2px;
+}
+
+hr {
+  border: 0;
+  height: 1px;
+  background-image: linear-gradient(to right, rgba(0,0,0,0), rgba(200,200,200,0.75), rgba(0,0,0,0));
+}
+
+hr.vertical {
+    border:         none;
+    border-left:    2px solid hsla(200, 10%, 50%,100);
+    height:         20vh;
+    width:          1px;
+}
+
+.footer {
+  background-color: #f6f5f7;
+}
+
+.footer li {
+  list-style-type: none;
+  margin-left: -30px;
+  padding-bottom: 3px;
+}
+
+.footer-box-left, .footer-box-center, .footer-box-right {
+  padding: 15px;
+  padding-left: 30px;
+}
+
+#fnameDemo::placeholder,
+#lnameDemo::placeholder,
+#emailDemo::placeholder,
+#phoneDemo::placeholder {
+  color: #aab7c4;
+  font-style: italic;
+  font-size: 0.875rem;
+}

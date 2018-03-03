@@ -1,0 +1,22 @@
+<!doctype html>
+{% load staticfiles %}
+
+<html>
+<head>
+    <link href="https://fonts.googleapis.com/css?family=Montserrat" rel="stylesheet">
+    <link rel="stylesheet" href="{% static 'bootstrap/css/bootstrap.min.css' %}">
+    <link rel="stylesheet" href="{% static 'font-awesome/css/font-awesome.min.css' %}">
+    <link rel="stylesheet" href="{% static 'customer/css/styles.css' %}">
+    <link rel="stylesheet" href="{% static 'customer/css/register-styles.css' %}">
+</head>
+<body>
+    <ul class="nav justify-content-end">
+        <li class="nav-item">
+            <a class="nav-link" href="#">Realtryx</a>
+        </li>
+    </ul>
+
+    {% block body_block %}
+    {% endblock %}
+</body>
+</html>

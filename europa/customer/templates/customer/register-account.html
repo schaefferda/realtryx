@@ -1,0 +1,32 @@
+{% extends 'customer/base-auth.html' %}
+{% block head_block %}
+    <title>Register New Account</title>
+{% endblock %}
+
+{% block body_block %}
+<div class="container">
+    <div class="d-flex justify-content-center">
+        <div class="sign-up text-center">
+            <h4 class="sign-up-header">Create New Account</h4>
+            <form action="/register-account/" method="POST">
+                {% csrf_token %}
+                <div class="form-group">
+                    {{ form.as_p }}
+                    {{ form.account_email }}
+                    {{ form.account_email.errors }}
+                </div>
+                <div class="form-group">
+                    {{ form.schema_name }}
+                    {{ form.schema_name.errors }}
+                </div>
+                <div class="form group">
+                    <input class="btn btn-success form-control" type="submit" name="create_account" value="Sign Up">
+                </div>
+            </form>
+        </div>
+    </div>
+    <div class="d-flex justify-content-center">
+        <p class="auth-text">Already have an account? <a href="#">Login In</a></p>
+    </div>
+</div>
+{% endblock %}
